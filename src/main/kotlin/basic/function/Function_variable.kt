@@ -1,4 +1,4 @@
-package com.lucas.function
+package basic.function
 
 /**
  * Function_variable.kt: Kotlin 의 다양한 Function form

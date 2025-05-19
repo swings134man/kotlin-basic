@@ -1,4 +1,4 @@
-package function
+package basic.function
 
 /**
  * Kotlin Function1: 코틀린 함수에 대해서 다루는 Class
