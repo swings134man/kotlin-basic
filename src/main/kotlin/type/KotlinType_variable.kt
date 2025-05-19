@@ -2,6 +2,8 @@ package type
 
 /**
  * Kotlin Type1: 코틀린 변수와, 타입의 선언에 대해서 다루는 Class
+ * @author: lucaskang(swings134man)
+ * @since: 2025. 5. 20. 오전 12:53
  */
 fun main() {
     println("KotlinType_1");
@@ -9,7 +11,8 @@ fun main() {
     /**
      * 1. 타입
      *
-     * Kotlin 은 Java 와 다르게 Primitive Type 을 제공하지 않는다.
+     * Kotlin 은 Java 와 다르게 Primitive Type 을 제공하지 않는다. -> 모든 타입을 객체 취급하여 사용한다. -> Primitive Type 과 Wrapper Type 의 구분이 없다.
+     * -> 다만 성능을 위해 내부적으로 컴파일될때 Primitive Type 으로 변환된다.
      *  또한 기본적으로 타입의 첫번째 글자는 대문자로 시작한다.
      *
      *  정수: Long(8), Int(4), Short(2), Byte(1)
@@ -67,11 +70,12 @@ fun main() {
      *
      */
     var name: String = "Kotlin"
+    name = "Kotlin2" // var 은 재할당이 가능하다.
     println("name:" + name)
     println("name: $name") // 위와 아래와 같은 2가지의 변수 활용법이 있다. (String Interpolation)
 
     // Nullable 변수
-    var nullableName: String? = null
+    val nullableName: String? = null
 //    var nullableName2: String = null // ? 를 붙이지 않으면, null 을 허용하지 않는다.
     println("nullableName: $nullableName")
 
