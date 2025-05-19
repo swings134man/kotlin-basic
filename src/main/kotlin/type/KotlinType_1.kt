@@ -74,5 +74,9 @@ fun main() {
     var nullableName: String? = null
 //    var nullableName2: String = null // ? 를 붙이지 않으면, null 을 허용하지 않는다.
     println("nullableName: $nullableName")
+
+    // val error
+    val errorString: String = "error"
+//    errorString = "jitter" // val 은 읽기 전용 변수이므로, 재할당이 불가능하다.
 }
 

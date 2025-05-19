@@ -8,14 +8,14 @@ fun main() {
     exam1()
     exam1("test")
 
-    var examReturn: String = examReturn()
+    val examReturn: String = examReturn()
     println("examReturn: $examReturn")
 
 //    var examParam = examParam("Kotlin1", 1) // 파라미터는 순서에 맞춰 작성하기도 하지만.
-    var examParam = examParam(age = 1, name = "Kotlin1") // 파라미터의 이름을 지정하여 작성할 수도 있다.
+    val examParam = examParam(age = 1, name = "Kotlin1") // 파라미터의 이름을 지정하여 작성할 수도 있다.
     println("examParam: $examParam")
 
-    var examParamDefault = examParamDefault()
+    val examParamDefault = examParamDefault()
     println("examParamDefault: $examParamDefault")
 
 }//main
