@@ -15,8 +15,8 @@ fun main() {
 //    throw BusinessException("Test error")
 
     try {
-        throw BaseException("Test error") // default Code 500
-//        throw BusinessException("Test error") // default Code 400
+//        throw BaseException("Test error") // default Code 500
+        throw BusinessException("Test error", IllegalArgumentException("잘못된 인자")) // default Code 400, ex) Throwable=Illegal
     } catch (e: BaseException) {
         println(e.message)
         println(e.code)

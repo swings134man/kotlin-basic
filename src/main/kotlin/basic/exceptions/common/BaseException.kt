@@ -15,5 +15,6 @@ package com.lucas.basic.exceptions.common
 open class BaseException (
     override val message: String,
     val code: String = "500", // 기본적으로 500 으로 설정
+    override val cause: Throwable? = null, // Throwable 을 상속받는 모든 예외를 처리하기 위해
 //    val status: HttpStatus = HttpStatus.INTERNAL_SERVER_ERROR, // Spring 에서 사용
 ) : RuntimeException(message)

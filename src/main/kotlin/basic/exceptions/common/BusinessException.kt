@@ -7,4 +7,4 @@ package com.lucas.basic.exceptions.common
  * @since: 2025. 5. 23. 오전 2:00
  * @see: com.lucas.basic.exceptions.common.BaseException
  */
-class BusinessException(message: String) : BaseException(message, "400")
+class BusinessException(message: String, cause: Throwable? = null) : BaseException(message, "400", cause)
