@@ -24,6 +24,17 @@ class CompanionOne {
 
 }
 
+// 팩토리 생성자에도 활용함.
+data class FactoryCompanion (val name: String, val age: Int) {
+    companion object{
+        const val MAX_CHILD_AGE = 18 // static final 런타임 상수
+
+        fun defaultAge(name: String)
+        : FactoryCompanion = FactoryCompanion(name, 0) // 팩토리 메소드로 기본 나이 설정
+    }
+}
+
+
 fun main() {
     // Companion Object 에 접근하는 방법
     println(CompanionOne.TAG) // CompanionOne.Companion.TAG
@@ -32,4 +43,7 @@ fun main() {
 
     CompanionOne.staticList.add("Item 1")
     println("Static List: ${CompanionOne.staticList}")
+
+    // factory
+    println("default Age: " + FactoryCompanion.defaultAge("Lucas"))
 }
