@@ -1,5 +1,6 @@
 package com.lucas.basic.coroutines
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -16,6 +17,10 @@ import kotlinx.coroutines.runBlocking
  * @since: 2025. 7. 2. 오후 5:23
  * @description: 해당 main 에 대한 동작설명
  * - GlobalScope.launch 블록 안에 있는 코드는 비동기적으로 실행됩니다. -> 코루틴 실행 블록
+ *      - GlobalScope 사용시, warning 을 받게 되며, 이는 GlobalScope 가 프로그램 전체에서 실행되는 코루틴을 생성하기 때문입니다.
+ *      - GlobalScope 는 프로그램 전체에서 실행되는 코루틴을 생성하기 때문에, 구조적 동시성(Structured Concurrency) 에 위배됩니다. -> 따라서, 오용되기 쉬운 API 이며, 구조적 동시성 위반할 수 있기 때문에 경고하는것이고
+ *      - @optIn 을 사용하여 잠재적인 위험이 존재한다는것을 명시적으로 표시한다.
+ *
  * - 우선적으로 main 함수가 실행되면서 "Hello"를 출력.
  *      - 이후에 GlobalScope.launch 블록 안의 코드가 실행되기 전에 main 함수가 종료되지 않도록 Thread.sleep(2000L)로 2초간 대기합니다.
  * - 1s 후에 코루틴 Scope 안에 코드가 실행됨. -> "World!!" 출력
@@ -35,6 +40,7 @@ fun main() {
 
 }
 
+@OptIn(DelicateCoroutinesApi::class) // DelicateCoroutinesApi: GlobalScope 를 사용하겠다는 명시적인 표시
 fun example1() {
     // coroutine 실행 블록 -> GlobalScope 는 object
     GlobalScope.launch {
@@ -60,6 +66,7 @@ fun example1() {
  * @author: lucaskang(swings134man)
  * @since: 2025. 7. 2. 오후 5:49 
  */
+@OptIn(DelicateCoroutinesApi::class)
 fun example1Sub() = runBlocking {
 
     GlobalScope.launch {
@@ -79,6 +86,7 @@ fun example1Sub() = runBlocking {
  * @author: lucaskang(swings134man)
  * @since: 2025. 7. 2. 오후 5:51 
  */
+@OptIn(DelicateCoroutinesApi::class)
 fun example2Sub() = runBlocking {
     val job = GlobalScope.launch {
         delay(3000L) // 3초 후에 실행 -> 원래대로 라면 프로그램이 종료되기 때문에, 이 부분이 실행되지 않음. -> 다만 join() 을 사용해서 기다리게 한다.
@@ -97,18 +105,19 @@ fun example2Sub() = runBlocking {
  * - 다만 위의 코드는 join() 이 없을 경우, 프로그램이 종료됨.
  * - 즉 구조적으로 GlobalScope 와 runBlocking 은 구조적으로 관련이 없다. -> 별도의 코루틴 scope 임
  * - 2개의 launch 블록이 실행되지만. join 을 사용하지 않더라도, 2개의 launch 블록 모두 기다렸다가 종료하게 됨.
+ * - 등록은 순차적이지만, -> 실행은 병렬이기떄문에 world 1,2 순차적으로 출력되지 않을 수 있음.
  * @author: lucaskang(swings134man)
  * @since: 2025. 7. 2. 오후 5:59 
  */
 fun example3Sub() = runBlocking {
     this.launch {
         delay(1000L)
-        println("World!! - ${Thread.currentThread().name}")
+        println("World 1 !! - ${Thread.currentThread().name}")
     }
 
     this.launch {
         delay(1000L)
-        println("World!! - ${Thread.currentThread().name}")
+        println("World 2 !! - ${Thread.currentThread().name}")
     }
 
     println("Hello - ${Thread.currentThread().name}")
