@@ -1,5 +1,6 @@
 package com.lucas.basic.coroutines
 
+import com.lucas.common.printlnWithThreadName
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -45,10 +46,10 @@ fun example1() {
     // coroutine 실행 블록 -> GlobalScope 는 object
     GlobalScope.launch {
         delay(1000L)
-        println("World!! - ${Thread.currentThread().name}") // defaultDispatcher-worker-1
+        printlnWithThreadName("World!!") // defaultDispatcher-worker-1
     }
 
-    println("Hello - ${Thread.currentThread().name}") // main
+    printlnWithThreadName("Hello") // main
 
     // Blocking 함수 (Main Thread)
 //    Thread.sleep(2000L)
@@ -71,10 +72,10 @@ fun example1Sub() = runBlocking {
 
     GlobalScope.launch {
         delay(1000L)
-        println("World!! - ${Thread.currentThread().name}") // defaultDispatcher-worker-1
+        printlnWithThreadName("World!!") // defaultDispatcher-worker-1
     }
 
-    println("Hello - ${Thread.currentThread().name}") // main
+    printlnWithThreadName("Hello") // main
     delay(2000L)
 }
 
@@ -90,10 +91,10 @@ fun example1Sub() = runBlocking {
 fun example2Sub() = runBlocking {
     val job = GlobalScope.launch {
         delay(3000L) // 3초 후에 실행 -> 원래대로 라면 프로그램이 종료되기 때문에, 이 부분이 실행되지 않음. -> 다만 join() 을 사용해서 기다리게 한다.
-        println("World!! - ${Thread.currentThread().name}")
+        printlnWithThreadName("World!!")
     }
 
-    println("Hello - ${Thread.currentThread().name}")
+    printlnWithThreadName("Hello")
 
     job.join() // job 이 완료될 때까지 기다립니다.
 }
@@ -112,13 +113,13 @@ fun example2Sub() = runBlocking {
 fun example3Sub() = runBlocking {
     this.launch {
         delay(1000L)
-        println("World 1 !! - ${Thread.currentThread().name}")
+        printlnWithThreadName("World 1 !!")
     }
 
     this.launch {
         delay(1000L)
-        println("World 2 !! - ${Thread.currentThread().name}")
+        printlnWithThreadName("World 2 !!")
     }
 
-    println("Hello - ${Thread.currentThread().name}")
+    printlnWithThreadName("Hello")
 }
