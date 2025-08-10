@@ -16,6 +16,10 @@ interface InputModal {
 
 // 상속 가능한 Class
 open class BaseModal: InputModal {
+
+    protected val notOpen: String = ""
+    protected open val openData = ""
+
     override fun openModal() { // override 상속 가능
         println("Base Modal Opened")
     }
@@ -27,6 +31,10 @@ open class BaseModal: InputModal {
 
 // MainModal Class 는 다른곳에서 상속받을 수 없다.
 class MainModal: BaseModal() {
+
+//    val notOpen: String = "" // BaseModal 의 notOpen 은 상속되지 않음
+    override val openData: String = "Main Modal Data" // openData 는 상속되므로 재정의 가능
+
     override fun openModal() { // override 재정의 가능
         super.openModal() // 부모 클래스의 openModal 호출
         println("Main Modal Opened")
